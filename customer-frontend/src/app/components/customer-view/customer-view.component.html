@@ -1,0 +1,19 @@
+<div class="container mt-4" *ngIf="customer">
+  <h2>Customer Details</h2>
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <strong>First Name: </strong>{{ customer.first_name }}
+    </li>
+    <li class="list-group-item">
+      <strong>Last Name: </strong>{{ customer.last_name }}
+    </li>
+    <li class="list-group-item">
+      <strong>Email: </strong>{{ customer.email }}
+    </li>
+    <li class="list-group-item">
+      <strong>Contact Number: </strong>{{ customer.contact_number }}
+    </li>
+  </ul>
+  <button class="btn btn-secondary mt-3" (click)="back()">Back</button>
+</div>

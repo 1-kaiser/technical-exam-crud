@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <h2>Customers</h2>
+
+  <div class="input-group mb-3">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Search by name or email"
+      [(ngModel)]="searchTerm"
+      [(keyup.enter)]="onSearch()"
+    />
+    <div class="input-group-append">
+      <button class="btn btn-primary" (click)="onSearch()">Search</button>
+    </div>
+  </div>
+  <button class="btn btn-success mb-3" routerLink="/create">
+    Add Customer
+  </button>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.first_name }}</td>
+        <td>{{ customer.last_name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.contact_number }}</td>
+        <td>
+          <button class="btn btn-info btn-sm mr-1" (click)="onView(customer)">
+            View
+          </button>
+          <button
+            class="btn btn-warning btn-sm mr-1"
+            (click)="onEdit(customer)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-danger btn-sm mr-1"
+            (click)="onDelete(customer)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

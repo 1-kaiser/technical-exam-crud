@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <h2>{{ isEdit ? "Customer" : "Create" }} Customer</h2>
+
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input
+        id="first_name"
+        class="form-control"
+        formControlName="first_name"
+      />
+      <div
+        *ngIf="
+          customerForm.get('first_name')?.invalid &&
+          customerForm.get('first_name')?.touched
+        "
+        class="text-danger"
+      >
+        First name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input id="last_name" class="form-control" formControlName="last_name" />
+      <div
+        *ngIf="
+          customerForm.get('last_name')?.invalid &&
+          customerForm.get('last_name')?.touched
+        "
+        class="text-danger"
+      >
+        Last name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        formControlName="email"
+      />
+      <div
+        *ngIf="
+          customerForm.get('email')?.invalid &&
+          customerForm.get('email')?.touched
+        "
+        class="text-danger"
+      >
+        Valid email is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contact_number">Contact Number</label>
+      <input
+        id="contact_number"
+        class="form-control"
+        formControlName="contact_number"
+      />
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="customerForm.invalid"
+    >
+      {{ isEdit ? "Update" : "Create" }}
+    </button>
+    <button class="btn btn-secondary ml-2" routerLink="/">Cancel</button>
+  </form>
+</div>

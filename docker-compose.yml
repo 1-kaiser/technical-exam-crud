@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ./customer-api
+    container_name: customer-api
+    restart: unless-stopped
+    volumes:
+      - ./customer-api:/var/www
+    environment:
+      - DB_HOST=database
+      - DB_DATABASE=customers
+      - DB_USERNAME=root
+      - DB_PASSWORD=secret
+      - ELASTICSEARCH_URL=http://searcher:9200/customers/_doc
+    depends_on:
+      - database
+      - searcher
+    networks:
+      - app-network
+
+  controller:
+    build:
+      context: ./controller
+    container_name: controller
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+  database:
+    image: mysql:8.0
+    container_name: customer-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: customers
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+
+  searcher:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - app-network
+
+volumes:
+  dbdata:
+
+networks:
+  app-network:
+    driver: bridge
