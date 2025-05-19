@@ -13,11 +13,11 @@
 
 ## Setup & Run
 
-### 1. Clone or fork the repo
+### 1. Clone the repo
 
 ```bash
-git clone <repo-url>
-cd project-root
+gh repo clone 1-kaiser/technical-exam-crud
+cd technical-exam-crud
 ```
 
 ### 2. Start the docker environment
